@@ -1,5 +1,4 @@
 from django.shortcuts import render
-# from webapp.articles_db import ArticlesDB
 from django.http import HttpResponseRedirect
 from webapp.models import Article
 
@@ -7,6 +6,12 @@ from webapp.models import Article
 def index_view(request):
     articles = Article.objects.all()
     return render(request, 'index.html', {'articles': articles})
+
+
+def article_view(request):
+    article_id = request.GET.get('id')
+    article = Article.objects.get(id=article_id)
+    return render(request, 'article_view.html', {'article': article})
 
 
 def article_create_view(request):
