@@ -1,15 +1,11 @@
 from django.shortcuts import render
-from webapp.articles_db import ArticlesDB
+# from webapp.articles_db import ArticlesDB
 from django.http import HttpResponseRedirect
+from webapp.models import Article
 
 
 def index_view(request):
-    articles = ArticlesDB.articles
-    # print(request.GET)
-    # print(request.GET.get('test'))
-    # print(request.GET.get('name'))
-    # print(request.GET.get('name2', 'test 123'))
-    # print(request.GET.getlist('test'))
+    articles = Article.objects.all()
     return render(request, 'index.html', {'articles': articles})
 
 
@@ -17,11 +13,10 @@ def article_create_view(request):
     if request.method == "GET":
         return render(request, 'article_create.html')
     elif request.method == "POST":
-        print(request.POST)
-        article_new = {
-            'title': request.POST.get('title'),
-            'content': request.POST.get('content'),
-            'author': request.POST.get('author'),
-        }
-        ArticlesDB.articles.append(article_new)
+        Article.objects.create(
+            title=request.POST.get('title'),
+            content=request.POST.get('content'),
+            author=request.POST.get('author')
+        )
+
         return HttpResponseRedirect('/')
