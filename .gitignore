@@ -174,7 +174,3 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
-/source/webapp/static/notes.txt
-notes.txt
-!/source/webapp/static/notes.txt
-
