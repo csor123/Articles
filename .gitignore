@@ -176,3 +176,5 @@ cython_debug/
 
 /source/webapp/static/notes.txt
 notes.txt
+!/source/webapp/static/notes.txt
+
