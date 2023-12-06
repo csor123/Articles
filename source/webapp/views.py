@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import HttpResponseRedirect
 from webapp.models import Article
 
@@ -8,9 +8,9 @@ def index_view(request):
     return render(request, 'index.html', {'articles': articles})
 
 
-def article_view(request):
-    article_id = request.GET.get('id')
-    article = Article.objects.get(id=article_id)
+def article_view(request, *args, pk, **kwargs):
+    # article = Article.objects.get(id=pk)
+    article = get_object_or_404(Article, pk=pk)
     return render(request, 'article_view.html', {'article': article})
 
 
@@ -18,10 +18,14 @@ def article_create_view(request):
     if request.method == "GET":
         return render(request, 'article_create.html')
     elif request.method == "POST":
-        Article.objects.create(
+        article = Article.objects.create(
             title=request.POST.get('title'),
             content=request.POST.get('content'),
             author=request.POST.get('author')
         )
+        # url = reverse('article_view', kwargs={'pk': article.pk})
+        # return HttpResponseRedirect(url)
+        return redirect('article_view', pk=article.pk)
+        # return HttpResponseRedirect(f'/article/{article.pk}/')
 
-        return HttpResponseRedirect('/')
+    # return HttpResponseRedirect('/')

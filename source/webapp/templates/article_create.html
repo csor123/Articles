@@ -9,7 +9,8 @@
 
 <h1>Create Article</h1>
 
-<form action="/articles/add/" method="post">
+{#<form action="/articles/add/" method="post"> если в action не указан никакой путь, то она отправляет запрос на эту же страницу #}
+<form action="" method="post">
     {% csrf_token %}
     
     <label>Title:</label><br/>
@@ -23,7 +24,7 @@
     <br/>
     <input type="submit" value="Send"/>
 </form>
-<a href="/" class="btn btn-primary" style="margin-top: 20px">Go to main</a>
+<a href="{% url 'index' %}" class="btn btn-primary" style="margin-top: 20px">Go to main</a>
 
 </body>
 </html>
