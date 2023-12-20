@@ -1,28 +1,23 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Articles</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  </head>
-  <body>
-  <h1>Articles</h1>
-  <a href="{% url 'article_create' %}">Создать статью</a>
+{% extends 'base.html' %}
+{% block title %}Products{% endblock %}
+{% block content %}
     {% for article in articles %}
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">{{ article.title }}</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">{{ article.author }}</h6>
-            <p class="card-text">{{ article.content }}.</p>
-{#            <a href="article/{{ article.id }}" class="details">Details</a>#}
-            <a href="{% url 'article_view' pk=article.pk %}" class="details">Details...</a>
-            <a href="#" class="card-link">Another link</a>
-          </div>
+        <div class="col-md-6">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ article.image }}" class="img-fluid rounded-start" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.title }}</h5>
+                            <p class="card-text"><small class="text-body-secondary">{{article.author}}</small></p>
+                            <p class="card-text">{{article.content}}</p>
+                            <a href="{% url 'article_view' pk=article.pk %}" class="card-link">see more >>></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
     {% endfor %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </body>
-</html>
-
+{% endblock %}
